@@ -1,0 +1,29 @@
+/* You can add global styles to this file, and also import other style files */
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.toolbar {
+    height: 50px;    
+    display: flex;
+    align-items: center;
+    background-color:#1976d2;
+    color: white;
+    font-weight: 600;
+}
+.toolbar img {
+    margin: 0 16px;
+}
+
+.button-bar {
+    width: auto;
+    padding: 5px;
+    margin: 2px;
+    display: flex;
+    justify-content: flex-end;
+}
+.p-button{
+    margin-right: 10px !important;
+    background-color:#1976d2;
+    color: white;
+}

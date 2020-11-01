@@ -1,0 +1,29 @@
+::ng-deep .selectedRow {
+    background-color: lightcyan;
+    color: black;
+}
+.gates-main {
+    width: 100%;
+    height: 100%;
+    overflow-y: scroll;     
+}
+.pepe-table {
+    flex: 0 1 calc(90% - 6px);
+    width: -webkit-fill-available;
+    height: auto;
+    margin: 3px;
+    padding: 1px;
+    box-sizing: border-box;
+    tr {
+        height: max-content;
+    }
+}
+.mat-column-status {
+    flex: 0 0 5% !important;
+    width: 5% !important;
+    padding-left: 10px;
+    -ms-hyphens: auto;
+    -moz-hyphens: auto;
+    -webkit-hyphens: auto;
+    hyphens: auto;
+}

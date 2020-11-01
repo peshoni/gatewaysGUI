@@ -1,0 +1,42 @@
+<mat-dialog-content>
+    <div [formGroup]="form" style="height: 100%">
+        <h4>add {{type}} {{parent? 'to ' +parent.ipAddress : ''}}</h4>
+        <div *ngIf="type=='gateway'">
+            <div style="display: flex;">
+                <mat-form-field style="flex:1">
+                    <input matInput placeholder="serial number" formControlName="serialNumber" type="text"
+                        autocomplete="off">
+                    <mat-error *ngIf="isFieldValid('serialNumber')">required</mat-error>
+                </mat-form-field>
+                <button type="button" style="height:25px;margin: 5px;" (click)="getUniqueString()">gen</button>
+            </div>
+            <mat-form-field>
+                <input matInput placeholder="name" formControlName="name" type="text" autocomplete="off">
+                <mat-error *ngIf="isFieldValid('name')">required</mat-error>
+            </mat-form-field>
+            <mat-form-field>
+                <input matInput placeholder="ip address" formControlName="ipAddress" type="text" autocomplete="off">
+                <mat-error *ngIf="isFieldValid('ipAddress')">invalid ip format(xxx.xxx.xxx.xxx)</mat-error>
+            </mat-form-field>
+        </div>
+        <div *ngIf="type=='device'">
+            <mat-form-field *ngIf="availableDevices">
+                <mat-select #devSel name="id" formControlName="id" required
+                    (selectionChange)="deviceSelected(devSel.value)">
+                    <mat-option *ngFor="let device of availableDevices" [value]="device.id" class="form-control"
+                        matTooltipPosition="right" id="id">
+                        id: {{device.id}} vendor:{{device.vendor}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field>
+                <input matInput placeholder="vendor" formControlName="vendor" type="text" autocomplete="off">
+            </mat-form-field>
+        </div>
+        <mat-dialog-actions class="dialog-button-bar" style="margin-bottom: 0;">
+            <button mat-raised-button class="p-button" (click)="close()">cancel</button>
+            <button mat-raised-button class="p-button" (click)="save()">save</button>
+        </mat-dialog-actions>
+    </div>
+</mat-dialog-content>
+<!-- <pre>{{form.value | json}}</pre> -->

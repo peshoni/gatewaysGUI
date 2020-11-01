@@ -1,0 +1,88 @@
+<div class="gates-main">
+    <div class="button-bar">
+        <button mat-raised-button type="button" class="p-button" (click)="loadRandomCollection()">
+            load test data
+        </button>
+        <button mat-raised-button type="button" class="p-button" (click)="clearAllDataCollection()">
+            drop data
+        </button>
+        <div style="flex: 1;"></div>
+        <button mat-raised-button type="button" class="p-button" (click)="addGateway()">
+            add gateway
+        </button>
+    </div>
+    <div style="margin: 25px;">
+        <div *ngFor="let gate of gateways">
+            <mat-accordion>
+                <mat-expansion-panel [expanded]="gate.expanded === true" style="margin-bottom: 5px;">
+                    <mat-expansion-panel-header (click)="toggleExpandStates(gate)">
+                        <mat-panel-title>
+                            Gate ID: {{gate.id}} IP: {{gate.ipAddress}}
+                        </mat-panel-title>
+                        <mat-panel-description>
+                            <span> devices: {{gate.devices.length}} available slots:
+                                {{10 - gate.devices.length}} </span>
+                        </mat-panel-description>
+                    </mat-expansion-panel-header>
+                    <div class="button-bar">
+                        <button mat-raised-button type="button" class="p-button" (click)="addDevice(gate)">ad
+                            device</button>
+                    </div>
+                    <table mat-table class="pepe-table" [dataSource]="gate.devices">
+                        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                        <tr mat-row *matRowDef="let row; columns: displayedColumns;">
+                        </tr>
+                        <ng-container matColumnDef="id">
+                            <th mat-header-cell *matHeaderCellDef> UID </th>
+                            <td mat-cell *matCellDef="let device; let i = index;">
+                                {{device.id}} </td>
+                        </ng-container>
+                        <ng-container matColumnDef="parentId">
+                            <th mat-header-cell *matHeaderCellDef> parent id </th>
+                            <td mat-cell *matCellDef="let device; let i = index;">
+                                {{device.parentId}} </td>
+                        </ng-container>
+                        <ng-container matColumnDef="vendor">
+                            <th mat-header-cell *matHeaderCellDef> vendor </th>
+                            <td mat-cell *matCellDef="let device; let i = index;">
+                                {{device.vendor}}
+                            </td>
+                        </ng-container>
+                        <ng-container matColumnDef="created">
+                            <th mat-header-cell *matHeaderCellDef>created at </th>
+                            <td mat-cell *matCellDef="let device; let i = index;">
+                                {{device.created | date:'dd/MM/yyyy HH:mm:ss'}}
+                            </td>
+                        </ng-container>
+                        <ng-container matColumnDef="updated">
+                            <th mat-header-cell *matHeaderCellDef>updated at </th>
+                            <td mat-cell *matCellDef="let device; let i = index;">
+                                {{device.updated | date:'dd/MM/yyyy HH:mm:ss'}}
+                            </td>
+                        </ng-container>
+                        <ng-container matColumnDef="online">
+                            <th mat-header-cell *matHeaderCellDef> online </th>
+                            <td mat-cell *matCellDef="let device; let i = index;">
+                                {{device.online}}
+                            </td>
+                        </ng-container>
+                        <ng-container matColumnDef="changeState">
+                            <th mat-header-cell *matHeaderCellDef> state </th>
+                            <td mat-cell *matCellDef="let device; let i = index;">
+                                <mat-slide-toggle [checked]="device.online" value="device"
+                                    (change)="changeDeviceState($event, device)"></mat-slide-toggle>
+                            </td>
+                        </ng-container>
+                        <ng-container matColumnDef="detach">
+                            <th mat-header-cell *matHeaderCellDef> detach </th>
+                            <td mat-cell *matCellDef="let device; let i = index;">
+                                <button type="button" (click)="detachDeviceFromGateway(device)">
+                                    detach</button>
+                            </td>
+                        </ng-container>
+                    </table>
+                </mat-expansion-panel>
+            </mat-accordion>
+        </div>
+    </div>
+</div>
